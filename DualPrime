@@ -1,0 +1,63 @@
+#include <iostream>
+#include <cmath>
+#include <vector>
+using namespace std;
+
+bool isPrime(int);
+bool DualPrime(int, int);
+
+int main()
+{
+    int num;
+    
+    bool isTrue;
+    cout << "How high do you want to search for dual prime numbers? ";
+    cin >> num;
+    vector<int> dualVector;
+    for(int i=2;i<num;i++)
+    {
+        if(isPrime(i))
+        {
+            dualVector.push_back(i);
+           
+            if(i>2)
+            {
+                isTrue=DualPrime(dualVector[0],dualVector[1]);
+                if(isTrue)
+                {
+                    cout << "Dual Prime: " << dualVector[0] << " , " <<dualVector[1] << endl;
+                    swap(dualVector[0],dualVector[1]);
+                    dualVector.pop_back();
+                }
+                else
+                {
+                    cout<< "Not Dual Prime: " << dualVector[0] << " , " << dualVector[1] << endl;
+                    swap(dualVector[0],dualVector[1]);
+                    dualVector.pop_back();
+                }
+            }
+        }
+    }
+    return 0;
+}
+
+bool isPrime(int x)
+{
+    if(x == 2 || x == 3)
+        return true;
+    if(x % 2 == 0 || x % 3 == 0)
+        return false;
+    for(int i = 2, y = x / 2; i < y; i++)
+    {
+        if(x % i == 0)
+            return false;
+    }
+    return true;
+}
+
+bool DualPrime(int x, int y)
+{
+    if(y-x==2)
+        return true;
+    return false;
+}
